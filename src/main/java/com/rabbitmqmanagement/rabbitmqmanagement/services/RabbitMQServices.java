@@ -56,47 +56,16 @@ public class RabbitMQServices {
     private Exchange exchangeCreator(Integer exchange, String exchangeName, Boolean durable, Boolean autoDelete){
         switch (exchange){
             case 1 :
-                 return directExchange(exchangeName, durable, autoDelete);
+                 return new DirectExchange(exchangeName, durable, autoDelete);
             case 2 :
-                return topicExchange(exchangeName, durable, autoDelete);
+                return new TopicExchange(exchangeName, durable, autoDelete);
             case 3 :
-                return fanoutExchange(exchangeName, durable, autoDelete);
+                return new FanoutExchange(exchangeName, durable, autoDelete);
             case 4 :
-                return headerExchange(exchangeName, durable, autoDelete);
+                return new HeadersExchange(exchangeName, durable, autoDelete);
             default:
                 return null;
 
         }
-    }
-    private Exchange directExchange(String exchangeName, Boolean durable, Boolean autoDelete){
-        return new DirectExchange(
-                exchangeName,
-                durable,
-                autoDelete
-        );
-    }
-
-    private Exchange topicExchange(String exchangeName, Boolean durable, Boolean autoDelete){
-        return new TopicExchange(
-                exchangeName,
-                durable,
-                autoDelete
-        );
-    }
-
-    private Exchange fanoutExchange(String exchangeName, Boolean durable, Boolean autoDelete){
-        return new FanoutExchange(
-                exchangeName,
-                durable,
-                autoDelete
-        );
-    }
-
-    private Exchange headerExchange(String exchangeName, Boolean durable, Boolean autoDelete){
-        return new HeadersExchange(
-                exchangeName,
-                durable,
-                autoDelete
-        );
     }
 }

@@ -37,6 +37,11 @@ public class RabbitMQServices {
         logger.log(Level.INFO, "created Queue: " + queue.getName() + " " + queue.isDurable());
     }
 
+    public Boolean deleteQueue(String name){
+        return rabbitAdmin.deleteQueue(name);
+    }
+
+
 
     /////////////////////////////////////--------------------//////////////////////////
     public void declareExchange(RabbitMQExchangeBuilder exchangeBuilder){
@@ -49,6 +54,10 @@ public class RabbitMQServices {
 
         logger.log(Level.INFO, "created Exchange: " + rabbitAdmin.toString());
 
+    }
+
+    public Boolean deleteExchange(String name){
+        return rabbitAdmin.deleteExchange(name);
     }
 
     ///

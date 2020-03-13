@@ -5,11 +5,9 @@ import com.rabbitmqmanagement.rabbitmqmanagement.requests.RabbitMQExchangeBuilde
 import com.rabbitmqmanagement.rabbitmqmanagement.requests.RabbitMQQueueBuilder;
 import com.rabbitmqmanagement.rabbitmqmanagement.services.RabbitMQServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/rabbitmq")
@@ -34,5 +32,15 @@ public class RabbitMQController {
     public ResponseEntity<?> createBind(@RequestBody BindingDAO bindingDAO){
         rabbitMQServices.declareBinding(bindingDAO);
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/delete_queue/queue_name={queueName}")
+    public ResponseEntity<Boolean> deleteQueue(@PathVariable String queueName){
+        return new ResponseEntity<>(rabbitMQServices.deleteQueue(queueName), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete_exchange/exchange_name={exchangeName}")
+    public ResponseEntity<Boolean> deleteExchange(@PathVariable String exchangeName){
+        return new ResponseEntity<>(rabbitMQServices.deleteExchange(exchangeName), HttpStatus.OK);
     }
 }
